@@ -3,14 +3,14 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.141'
+    id 'net.neoforged.moddev' version '2.0.148'
 }
 
-version = '26.1.2-7.0.0'
+version = mod_version
 group = 'com.blakebr0.mysticalcustomization'
 
 base {
-    archivesName = 'MysticalCustomization'
+    archivesName = "Mystical-Customization-Reconfigured-${minecraft_version}"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(25)
@@ -18,15 +18,21 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(25)
 println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
 
 repositories {
-    maven { url 'https://maven.blakesmods.com' }
+    mavenLocal {
+        content {
+            includeModule 'com.blakebr0.cucumber', 'Cucumber'
+            includeModule 'com.blakebr0.mysticalagriculture', 'MysticalAgriculture'
+        }
+    }
+
     maven { url 'https://maven.blamejared.com' }
+
     maven {
         url 'https://cursemaven.com'
         content {
             includeGroup 'curse.maven'
         }
     }
-    mavenLocal()
 }
 
 tasks.register('syncTestConfigs', Sync) {
@@ -51,7 +57,9 @@ neoForge {
             systemProperty 'terminal.jline', 'true'
             logLevel = org.slf4j.event.Level.DEBUG
             ideName = "MysticalCustomization - ${it.ideName.get()}"
-            taskBefore tasks.named('syncTestConfigs')
+
+            // The bundled test fixtures include deliberately invalid JSON.
+            // Use ./gradlew syncTestConfigs explicitly when testing error reporting.
         }
     }
 
@@ -69,20 +77,20 @@ configurations {
 dependencies {
     implementation "com.blakebr0.cucumber:Cucumber:${cucumber_version}"
     implementation "com.blakebr0.mysticalagriculture:MysticalAgriculture:${mysticalagriculture_version}"
-    implementation "com.blakebr0.mysticalagradditions:MysticalAgradditions:${mysticalagradditions_version}"
-
-    runtimeOnly "curse.maven:jade-324717:${jade_version}"
-    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }
 
 java.withSourcesJar()
 
 tasks.withType(ProcessResources).configureEach {
+    exclude '**/*.bak'
+    exclude '**/.cache/**'
+
     var replaceProperties = [
-            mod_version                  : version.split('-').last(),
-            cucumber_version             : cucumber_version.split('-').last(),
-            mysticalagriculture_version  : mysticalagriculture_version.split('-').last(),
+        mod_version: project.version.toString(),
+        cucumber_version: cucumber_version,
+        mysticalagriculture_version: mysticalagriculture_version
     ]
+
     inputs.properties replaceProperties
 
     filesMatching(['META-INF/neoforge.mods.toml']) {
@@ -96,21 +104,6 @@ publishing {
             from components.java
         }
     }
-
-    repositories {
-        maven {
-            url = 'https://maven.blakesmods.com'
-
-            credentials {
-                username = System.getenv('BLAKESMODS_MAVEN_USERNAME')
-                password = System.getenv('BLAKESMODS_MAVEN_PASSWORD')
-            }
-
-            authentication {
-                basic(BasicAuthentication)
-            }
-        }
-    }
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -121,5 +114,14 @@ idea {
     module {
         downloadSources = true
         downloadJavadoc = true
+    }
+}
+
+tasks.withType(Jar).configureEach {
+    exclude '**/*.bak'
+    exclude '**/.cache/**'
+
+    from('LICENSE') {
+        into 'META-INF'
     }
 }

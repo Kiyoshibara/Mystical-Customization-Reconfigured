@@ -19,7 +19,6 @@ import net.neoforged.fml.loading.FMLPaths;
 import org.apache.commons.io.IOUtils;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -60,7 +59,7 @@ public final class CropTypeLoader {
                     id = MysticalCustomization.resource(name);
 
                     try {
-                        type = CropTypeCreator.create(name, json);
+                        type = CropTypeCreator.create(id, json);
                     } catch (JsonSyntaxException | IdentifierException e) {
                         ErrorManager.INSTANCE.addError(CATEGORY, "Creating %s: %s".formatted(id, e.getMessage()));
                     }
@@ -88,10 +87,10 @@ public final class CropTypeLoader {
 
         var file = FMLPaths.CONFIGDIR.get().resolve("mysticalcustomization/configure-types.json").toFile();
         if (file.exists() && file.isFile()) {
-            FileReader reader = null;
+            InputStreamReader reader = null;
 
             try {
-                reader = new FileReader(file);
+                reader = new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8);
                 var json = JsonParser.parseReader(reader).getAsJsonObject();
 
                 for (var entry : json.entrySet()) {

@@ -1,40 +1,38 @@
 license="MIT"
 
 [[mods]]
-    issueTrackerURL="https://github.com/BlakeBr0/MysticalCustomization/issues"
     modId="mysticalcustomization"
     version="${mod_version}"
-    displayName="Mystical Customization"
-    updateJSONURL="https://api.blakesmods.com/v2/mods/mysticalcustomization/26.1/updates"
-    displayURL="https://blakesmods.com/mystical-customization"
-    # logoFile="examplemod.png"
-    credits=""
-    authors="BlakeBr0"
+    displayName="Mystical Customization: Reconfigured"
+    logoFile="assets/mysticalcustomization/logo.png"
+    credits="Original mod and code by BlakeBr0 and contributors."
+    authors="BlakeBr0 (Original), Kiyoshibara (Unofficial Port)"
     description='''
-    Allows modpack creators to add new content and modify existing content in Mystical Agriculture.
+    Add and customize Mystical Agriculture crops, tiers, and mob soul types with JSON configuration. Unofficial NeoForge 26.3 port.
+    Support this unofficial port on Patreon: https://www.patreon.com/c/Kiyoshibara
     '''
 
     [[dependencies.mysticalcustomization]]
         modId="neoforge"
         mandatory=true
-        versionRange="[26.1.2.41-beta,)"
+        versionRange="[26.3.0.115,)"
         ordering="NONE"
         side="BOTH"
     [[dependencies.mysticalcustomization]]
         modId="minecraft"
         mandatory=true
-        versionRange="[26.1.2,26.2)"
+        versionRange="[26.3,26.4)"
         ordering="NONE"
         side="BOTH"
     [[dependencies.mysticalcustomization]]
         modId="cucumber"
         mandatory=true
-        versionRange="[${cucumber_version},)"
+        versionRange="[0.1.0,)"
         ordering="NONE"
         side="BOTH"
     [[dependencies.mysticalcustomization]]
         modId="mysticalagriculture"
         mandatory=true
-        versionRange="[${mysticalagriculture_version},)"
+        versionRange="[0.1.0,)"
         ordering="NONE"
         side="BOTH"

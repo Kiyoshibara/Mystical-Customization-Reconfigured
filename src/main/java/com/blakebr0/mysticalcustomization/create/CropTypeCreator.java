@@ -9,14 +9,14 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.util.GsonHelper;
 
 public final class CropTypeCreator {
-    public static CropType create(String name, JsonObject json) throws JsonSyntaxException, IdentifierException {
+    public static CropType create(Identifier id, JsonObject json) throws JsonSyntaxException, IdentifierException {
         var textures = GsonHelper.getAsJsonObject(json, "textures");
         var stem = GsonHelper.getAsString(textures, "stem");
 
-        var type = new CropType(Identifier.parse(name), Identifier.parse(stem));
+        var type = new CropType(id, Identifier.parse(stem));
 
         if (json.has("crafting_seed")) {
-            var itemId = GsonHelper.getAsString(json, "craftingSeed");
+            var itemId = GsonHelper.getAsString(json, "crafting_seed");
             CropTypeLoader.CRAFTING_SEED_MAP.put(type, Identifier.parse(itemId));
         }
 

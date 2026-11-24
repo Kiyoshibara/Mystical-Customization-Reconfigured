@@ -1,6 +1,7 @@
 package com.blakebr0.mysticalcustomization;
 
 import com.blakebr0.mysticalcustomization.command.ModCommands;
+import com.blakebr0.mysticalcustomization.client.CustomCropModelHandler;
 import com.blakebr0.mysticalcustomization.loader.CropLoader;
 import com.blakebr0.mysticalcustomization.loader.CropTierLoader;
 import com.blakebr0.mysticalcustomization.loader.CropTypeLoader;
@@ -9,6 +10,7 @@ import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
@@ -22,6 +24,9 @@ public final class MysticalCustomization {
 
     public MysticalCustomization(IEventBus bus) {
         bus.register(this);
+        if (FMLEnvironment.getDist().isClient()) {
+            bus.register(new CustomCropModelHandler());
+        }
     }
 
     @SubscribeEvent

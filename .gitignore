@@ -1,26 +1,109 @@
-# eclipse
+# Eclipse
 bin
 *.launch
 .settings
 .metadata
 .classpath
 .project
+eclipse
 
-# idea
+# IntelliJ IDEA
 out
 *.ipr
 *.iws
 *.iml
 .idea
+.run/
 
-# gradle
+# Visual Studio Code
+.vscode/
+.history/
+
+# Gradle
 build
 .gradle
+gradle-app.setting
+gradle.properties.local
 
-# other
-eclipse
+# Java
+*.class
+*.hprof
+hs_err_pid*
+replay_pid*
+
+# Minecraft Development
 run
-libs
 logs
 runs
 run-data
+/runClient/
+/runServer/
+/runData/
+/crash-reports/
+/saves/
+/world/
+/screenshots/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+
+# Build Artifacts
+/artifacts/
+/dist/
+/release/
+/releases/
+*.jar
+*.war
+*.ear
+
+# Preserve Gradle Wrapper
+!gradle/wrapper/gradle-wrapper.jar
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+*.log
+*.zip
+*.7z
+*.rar
+*~
+
+# Local Testing
+/test-output/
+/test-results/
+/coverage/
+/backups/
+
+# Secrets and Credentials
+.env
+.env.*
+!.env.example
+secrets.properties
+local.properties
+credentials.json
+credentials.properties
+*.jks
+*.keystore
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Operating System
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Additional Development Files
+libs/
+classes
+/src/generated/resources/.cache/
