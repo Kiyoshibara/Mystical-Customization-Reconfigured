@@ -22,7 +22,7 @@ Configuration files are located in `config/mysticalcustomization/`. Registry-bas
 
 ## Port Changes
 
-- Updated to Minecraft 26.3, NeoForge, and Java 25.
+- Updated to Minecraft 26.3, NeoForge, and NeoForge APIs while maintaining Java 25 compatibility
 - Migrated Minecraft and NeoForge APIs and configuration loaders.
 - Updated custom crop model handling for Minecraft 26.3.
 - Added compatibility with Cucumber: Re-Pickled and Mystical Agriculture: Replanted.
